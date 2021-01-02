@@ -29,6 +29,35 @@ app.use(require('./routes/'));
 app.use('/crud',require('./routes/crud')); 
 
 
+
+
+
+const sgMail = require("@sendgrid/mail");
+require('dotenv').config();
+console.log(process.env.SENDGRID_API_KEY);
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+const msg ={
+        to: ["krandym1993@hotmail.com", "kevo1803wow@gmail.com"],
+        from: "savestudios@onclass.online",
+        subject: "Aber",
+        text: "Texto",
+        html: `<strong>Eesto es <h1>HTML</h1></strong>
+        `
+    }
+
+var schedule = require('node-schedule');
+ 
+schedule.scheduleJob('*/15 * * * *', function(){
+    
+    sgMail.send(msg).then(()=> {
+        console.log('enviado');
+    }).catch((error) => {
+        console.error(error);
+    });
+    console.log('The answer to life, the universe, and everything!');
+});
+
 app.listen(app.get('port'),() => {
     console.log('Corriendo servidor en el puerto', app.get('port'));
 });  

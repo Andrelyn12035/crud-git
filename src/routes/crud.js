@@ -3,6 +3,9 @@ const { createPool } = require('mysql');
 const router = express.Router();
 const conection = require('../views/mysql');
 
+
+
+
 router.get('/agregar',(req,res)=>{
     res.render('../views/front/agregar');
 })
